@@ -1,0 +1,11 @@
+  <headers>
+    <header_entry id="0" priority="0" opened="0">
+      <subject>Message 1</subject>
+    </header_entry>
+    <header_entry id="1" priority="0" opened="0">
+      <subject>Message 2</subject>
+    </header_entry>
+    <header_entry id="2" priority="0" opened="0">
+      <subject>Message 3</subject>
+    </header_entry>
+  </headers>

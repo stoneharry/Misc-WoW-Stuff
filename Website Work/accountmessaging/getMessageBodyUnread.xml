@@ -1,0 +1,6 @@
+<body>Greetings players,
+
+This is an account message which can be triggered by the server.
+It will be shown right after login and is personal to an account.
+
+There can also be multiple messages queued at once.</body>

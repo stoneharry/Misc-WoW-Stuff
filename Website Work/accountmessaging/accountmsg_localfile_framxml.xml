@@ -1,0 +1,61 @@
+$ curl ACCOUNT_MESSAGE_HEADERS_URL?accountName=$accountname&sessionKeyHash=$keyhash
+<xs:element name="headers">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="header_entry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="subject" type="string"/>
+          </xs:sequence>
+          <xs:attribute name="id" type="integer"/>
+          <xs:attribute name="priority" type="integer"/>
+          <xs:attribute name="opened" type="integer"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<!--
+  <headers>
+    <header_entry id="0" priority="0" opened="0">
+      <subject>HeaderSubject 1</subject>
+    </header_entry>
+    <header_entry id="1" priority="0" opened="1">
+      <subject>HeaderSubject 2</subject>
+    </header_entry>
+  </headers>
+-->
+
+$ curl ACCOUNT_MESSAGE_BODY_NO_READ_URL?accountName=$accountname&sessionKeyHash=$keyhash&messageId=$id
+<xs:element name="body" type="xs:string"/>
+<!--
+  <body>Body</body>
+-->
+
+$ curl ACCOUNT_MESSAGE_READ_URL?accountName=$accountname&sessionKeyHash=$keyhash&messageId=$id
+
+
+sessionKeyHash:
+static const short hash_constant = 0x7A0B;
+SHA1_Init(&sha_context);
+SHA1_Update(&sha_context, ClientServices::Connection()->GetSessionKey(), 40);
+SHA1_Update(&sha_context, &hash_constant, sizeof (hash_constant));
+SHA1_Final(keyhash, &sha_context);
+
+
+local files:
+SFile::DisableSFileCheckDisk(); and SFile::EnableDirectAccess(0); ->
+nop(); and SFile::EnableDirectAccess(-1);.
+
+framexml/gluexml:
+ FrameXML_CheckSignature() return 3;
+           FrameXML_CreateFrames("Interface\\GlueXML\\GlueXML.toc", 0, &md5_ctx, &this._);
+          MD5Final(md5_result, &md5_ctx);
+          if ( !strncmp((const char *)md5_a, (const char *)md5_result, 16) )
+          -> if (true)
+            if ( SFile::FileExistsEx("Interface\\FrameXML\\Bindings.xml", 1) )
+    CGUIBindings::Load(*CGUIBindings::s_bindings, "Interface\\FrameXML\\Bindings.xml", &md5_ctx, &status);
+  MD5Final(md5_result, &md5_ctx);
+  if ( strncmp(&v45, (const char *)md5_result, 16) )
+    ClientPostClose(10);
+     -> if(false)
