@@ -1,5 +1,5 @@
 <?php
-$con = mysql_connect("37.59.19.103", "eocweb", "@") or die(mysql_error());
+$con = mysql_connect("", "", "@") or die(mysql_error());
 
 $account = mysql_real_escape_string($_GET["accountName"]);
 $hash = mysql_real_escape_string($_GET["sessionKeyHash"]);

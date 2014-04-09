@@ -17,7 +17,7 @@ $pass = $_GET["pass"];
 if ($pass == "54321")
 {
 
-$connection = mysql_connect("37.59.19.103", "eocweb", "@") or die("Connection to Database failed");
+$connection = mysql_connect("", "", "@") or die("Connection to Database failed");
 mysql_select_db("harry_chars") or die ("Database selection failed");
 
 $result = mysql_query("SELECT * FROM `playerbugreports` ORDER BY UID DESC");
@@ -197,7 +197,7 @@ mysql_close($connection);
 }
 else
 {
-$connection = mysql_connect("37.59.19.103", "StoneHarry", "@") or die("Connection to Database failed");
+$connection = mysql_connect("", "StoneHarry", "@") or die("Connection to Database failed");
 mysql_select_db("harry_chars") or die ("Database selection failed");
 
 $result = mysql_query("SELECT * FROM `playerbugreports` ORDER BY UID DESC");

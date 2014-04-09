@@ -1,10 +1,10 @@
 <?php
-$dispersionwow = session_name("dispersionwow");
-session_set_cookie_params(0, '/scripts/OfflineChat/', '.eoc.dispersion-wow.com');
+$ = session_name("");
+session_set_cookie_params(0, '/scripts/OfflineChat/', '.eoc.');
 session_start();
 if (isset($_SESSION['IP']))
 {
-	$connection = mysql_connect("37.59.19.103", "eocweb", "@") or die("Connection to Database failed");
+	$connection = mysql_connect("", "", "@") or die("Connection to Database failed");
 	mysql_select_db("harry_chars") or die ("Database selection failed");
 	$user = $_GET["user"];
 	$message = $_GET["message"];

@@ -12,17 +12,17 @@ xcopy /E "C:\Users\StoneDev\Desktop\Dev Realm\Scripts\Dropbox\kronos (1)" "C:\Us
 
 echo Backing up auth...
 
-"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="StoneDev" --password="@2013" eoc_auth > "c:\Users\StoneDev\desktop\backups\"%DATET%_auth.sql
+"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="" --password="@" eoc_auth > "c:\Users\StoneDev\desktop\backups\"%DATET%_auth.sql
 echo Done.
 
 echo Backing up chars...
 
-"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="StoneDev" --password="@2013" eoc_chars > "c:\Users\StoneDev\desktop\backups\"%DATET%_chars.sql
+"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="" --password="@" eoc_chars > "c:\Users\StoneDev\desktop\backups\"%DATET%_chars.sql
 echo Done.
 
 echo Backing up world...
 
-"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="StoneDev" --password="@2013" eoc_world > "c:\Users\StoneDev\desktop\backups\"%DATET%_world.sql
+"c:\program files\mysql\MySQL Server 5.5\bin\mysqldump" --host="127.0.0.1" --user="" --password="@" eoc_world > "c:\Users\StoneDev\desktop\backups\"%DATET%_world.sql
 echo Done.
 
 echo Compressing...
