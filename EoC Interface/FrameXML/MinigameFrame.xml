@@ -1,0 +1,126 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="MinigameFrame.lua"/>
+	
+	<Frame name="MinigameFrame" hidden="true" setAllPoints="true">
+		<Frames>
+			<Button name="MiniGameResourcesButton" inherits="DestinyButtonTemplate" parentKey="allianceButton">
+				<Anchors>
+					<Anchor point="RIGHT" x="-135" y="120"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self.label:SetText("Resources:\n0");
+						self.TimeSinceLastUpdate = 0;
+					</OnLoad>
+					<OnUpdate function="update_all_buttons"/>    
+				</Scripts>
+			</Button>
+			
+			<Button name="PurchaseWeakGhoul" inherits="UIPanelButtonTemplate" text="Purchase a weak Ghoul (Cost 5)">
+				<Size>
+					<AbsDimension x="230" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="45"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PurchaseWeakGhoul(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PurchaseSpellCaster" inherits="UIPanelButtonTemplate" text="Purchase a Necromancer (Cost 7)">
+				<Size>
+					<AbsDimension x="230" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="15"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PurchaseSpellcaster(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PurchaseAbomination" inherits="UIPanelButtonTemplate" text="Purchase a Abomination (Cost 50)">
+				<Size>
+					<AbsDimension x="230" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="-15"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PurchaseAbomination(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PurchaseTurretR" inherits="UIPanelButtonTemplate" text="Turret - Cost 30">
+				<Size>
+					<AbsDimension x="115" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="-45"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PurchaseTurret(self, 0)
+					</OnClick>
+				</Scripts>
+			</Button>		
+			<Button name="PurchaseTurretL" inherits="UIPanelButtonTemplate" text="Turret - Cost 30">
+				<Size>
+					<AbsDimension x="115" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-235" y="-45"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PurchaseTurret(self, 1)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="UpgradeGhouls" inherits="UIPanelButtonTemplate" text="Upgrade Ghouls (Cost 50)">
+				<Size>
+					<AbsDimension x="230" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="-75"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Upgrade_Unit(self, 0)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="UpgradeCasters" inherits="UIPanelButtonTemplate" text="Upgrade Necromancers (Cost 50)">
+				<Size>
+					<AbsDimension x="230" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" x="-120" y="-105"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Upgrade_Unit(self, 1)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+		</Frames>
+		<Layers>
+			<!--<Layer level="BACKGROUND">
+				<Texture setAllPoints="true" parentKey="alphaLayer">
+					<Color r="0" g="0" b="0" a="1"/>
+				</Texture>
+			</Layer>-->
+		</Layers>
+	</Frame>
+</Ui>

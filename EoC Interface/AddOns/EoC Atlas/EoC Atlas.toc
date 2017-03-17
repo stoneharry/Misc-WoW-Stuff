@@ -1,0 +1,8 @@
+﻿## Interface: 30300
+## Title: Edge of Chaos Atlas
+## Author: Alexeng @ Edge of Chaos
+## Version: beta
+## SavedVariables: EOC_ATLAS
+
+data.lua
+main.xml

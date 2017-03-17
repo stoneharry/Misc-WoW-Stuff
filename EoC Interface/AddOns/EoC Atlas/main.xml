@@ -1,0 +1,783 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	<Script file="main.lua"/>
+	
+	<Button name="EoCAtlasFrameCategoryTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="160" y="22"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				EoCAtlasFrameCategory_OnClick(self, button, down);
+			</OnClick>
+		</Scripts>
+		<NormalTexture name="$parentNormalTexture" file="Interface\AuctionFrame\UI-AuctionFrame-FilterBg">
+			<TexCoords left="0" right="0.53125" top="0" bottom="0.625"/>
+		</NormalTexture>
+		<HighlightTexture file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode="ADD"/>
+		<ButtonText name="$parentNormalText">
+			<Size>
+				<AbsDimension x="115" y="8"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="4" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontNormalSmallLeft"/>
+		<HighlightFont style="GameFontHighlightSmallLeft"/>
+	</Button>
+	
+	<Button name="EoCAtlasFrameElementTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="234" y="37"/>
+		</Size>
+		<Frames>
+			<Button name="$parentIcon">
+				<Size>
+					<AbsDimension x="35" y="35"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BORDER">
+						<Texture name="$parentTexture"/>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter function="EoCAtlasFrameInfoElement_OnEnter"/>
+					<OnLeave>
+						GameTooltip:Hide();
+						ResetCursor();
+					</OnLeave>
+					<OnClick>
+						if ( IsModifiedClick() ) then
+							local _, link = GameTooltip:GetItem();
+							HandleModifiedItemClick(link);
+						end
+					</OnClick>
+					<OnUpdate>
+						if ( GameTooltip:IsOwned(self) ) then
+							EoCAtlasFrameInfoElement_OnEnter(self);
+						end
+					</OnUpdate>
+				</Scripts>
+				<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+				<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+			</Button>
+		</Frames>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentTextLarge" inherits="GameFontNormalLarge" justifyH="LEFT" maxlines="1" text="Large Text" hidden="true">
+					<Size>
+						<AbsDimension x="234" y="37"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentTextSmall" inherits="GameFontNormalSmall" justifyH="LEFT" maxLines="3" wordwrap="true" text="Small Text" hidden="true">
+					<Size>
+						<AbsDimension x="234" y="37"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentText" inherits="GameFontNormal" justifyH="LEFT" maxLines="1" text="Normal Text">
+					<Size>
+						<AbsDimension x="200" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="37" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentTextExtra" inherits="GameFontNormalSmall" justifyV="TOP" justifyH="LEFT" maxLines="2" text="Extra Text">
+					<Size>
+						<AbsDimension x="200" y="21"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentText" relativePoint="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="0" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				local name = self:GetName();
+				self.icon = _G[name.."Icon"];
+				self.text = _G[name.."Text"];
+				self.textExtra = _G[name.."TextExtra"];
+				self.textLarge = _G[name.."TextLarge"];
+				self.textSmall = _G[name.."TextSmall"];
+				self.iconTexture = _G[name.."IconTexture"];
+			</OnLoad>
+		</Scripts>
+	</Button>
+	
+	<Button name="EoCAtlasFrameMinimapButton" parent="Minimap" frameStrata="MEDIUM" movable="true" inherits="MiniMapButtonTemplate">
+		<Size>
+			<AbsDimension x="21" y="21"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="Minimap" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="-76" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture name="$parentIcon" file="Interface\AddOns\EoC Atlas\MinimapIcon">
+					<Size>
+						<AbsDimension x="20" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture file="Interface\MINIMAP\MiniMap-TrackingBorder">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-5" y="4"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="26" y="-26"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight" alphaMode="ADD"/>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonUp");
+				self:RegisterForDrag("RightButton");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip_SetDefaultAnchor(GameTooltip, self);
+				GameTooltip:SetText("Edge of Chaos Atlas", 1, 1, 1);
+				GameTooltip:AddLine("Left-click to show/hide.|nRight-click to move icon.", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
+				GameTooltip:Show();
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				if ( EoCAtlasFrame:IsShown() ) then
+					EoCAtlasFrame:Hide();
+				else
+					EoCAtlasFrame:Show();
+				end
+			</OnClick>
+			<OnDragStart>
+				self:SetScript("OnUpdate", EoCAtlasFrameMinimapButton_OnUpdate);
+			</OnDragStart>
+			<OnDragStop>
+				MinimapButton_OnMouseUp(self);
+				self:SetScript("OnUpdate", nil);
+			</OnDragStop>
+		</Scripts>
+	</Button>
+
+	<Frame name="EoCAtlasFrame" toplevel="true" movable="true" parent="UIParent" enableMouse="true" hidden="true">
+		<Size>
+			<AbsDimension x="768" y="486"/>
+		</Size>
+		<TitleRegion name="$parentTitleRegion">
+			<Size>
+				<AbsDimension x="704" y="40"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="-20" y="-10"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</TitleRegion>
+		<Anchors>
+			<Anchor point="LEFT" x="20" y="40"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\HelpFrame\HelpFrame-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-Top">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="256" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-Top">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="512" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-BotLeft">
+					<Size>
+						<AbsDimension x="256" y="230"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="0.953125"/>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-Bottom">
+					<Size>
+						<AbsDimension x="256" y="230"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="256" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="0.953125"/>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-Bottom">
+					<Size>
+						<AbsDimension x="128" y="230"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="512" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="0.953125"/>
+				</Texture>
+				<Texture file="Interface\HelpFrame\HelpFrame-BotRight">
+					<Size>
+						<AbsDimension x="128" y="230"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+					<TexCoords left="0" right="1" top="0" bottom="0.953125"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentHeader" inherits="GameFontNormal" text="EOC_ATLAS_VERSION">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-17"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentInfo">
+				<Size>
+					<AbsDimension x="500" y="394"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="212" y="-56"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentSummary" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP" wordwrap="true">
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+								<Anchor point="BOTTOMRIGHT"/>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentTitle" inherits="GameFontNormalLarge" hidden="true">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-8"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentSubtitle" inherits="GameFontNormal" hidden="true">
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parentTitle" relativePoint="BOTTOM">
+									<Offset>
+										<AbsDimension x="0" y="-4"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Frame name="$parentDropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-115" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								_G[self:GetName().."Text"]:SetWidth(100);
+							</OnLoad>
+							<OnShow function="EoCAtlasFrameInfoDropDown_OnShow"/>
+						</Scripts>
+					</Frame>
+					<CheckButton name="$parentHeroic" inherits="OptionsSmallCheckButtonTemplate" hidden="true">
+						<Size>
+							<AbsDimension x="26" y="26"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								_G[self:GetName().."Text"]:SetText("Heroic");
+							</OnLoad>
+							<OnClick function="EoCAtlasFrameInfoHeroic_OnClick"/>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentRaid" inherits="OptionsSmallCheckButtonTemplate" hidden="true">
+						<Size>
+							<AbsDimension x="26" y="26"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentHeroic" relativePoint="BOTTOMLEFT"/>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								_G[self:GetName().."Text"]:SetText("25 Man");
+							</OnLoad>
+							<OnClick>
+								EoCAtlasFrame_UpdateElements();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<Frame name="$parentDivider" hidden="true">
+						<Size>
+							<AbsDimension x="518" y="19"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="-9" y="-56"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="$parentLeft" file="Interface\HelpFrame\HelpFrameDivider">
+									<Size>
+										<AbsDimension x="256" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT"/>
+									</Anchors>
+									<TexCoords left="0" right="1.0" top="0" bottom="0.3125"/>
+								</Texture>
+								<Texture name="$parentMiddle" file="Interface\HelpFrame\HelpFrameDivider">
+									<Size>
+										<AbsDimension x="194" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT">
+											<Offset>
+												<AbsDimension x="0" y="1"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="1.0" top="0.3125" bottom="0.625"/>
+								</Texture>
+								<Texture name="$parentRight" file="Interface\HelpFrame\HelpFrameDivider">
+									<Size>
+										<AbsDimension x="65" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentMiddle" relativePoint="RIGHT"/>
+									</Anchors>
+									<TexCoords left="0" right="0.25390625" top="0.625" bottom="0.9375"/>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+					<ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate" hidden="true">
+						<Size>
+							<AbsDimension x="475" y="324"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="0" y="-72"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture name="$parentScrollBarTop" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+									<Size>
+										<AbsDimension x="31" y="256"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="-2" y="5"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+								</Texture>
+								<Texture name="$parentScrollBarBottom" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+									<Size>
+										<AbsDimension x="31" y="104"/>
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+											<Offset>
+												<AbsDimension x="-2" y="-2"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+								</Texture>
+								<Texture name="$parentScrollBarMiddle" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+									<Size>
+										<AbsDimension x="31" y="60"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP" relativeTo="$parentScrollBarTop" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+										<Anchor point="BOTTOM" relativeTo="$parentScrollBarBottom" relativePoint="TOP">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.484375" top=".75" bottom="1.0"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnVerticalScroll>
+								FauxScrollFrame_OnVerticalScroll(self, offset, EOC_ATLAS_ELEMENTHEIGHT, EoCAtlasFrameInfo_Update);
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
+			</Frame>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-42" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory1" inherits="EoCAtlasFrameCategoryTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-54"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory2" inherits="EoCAtlasFrameCategoryTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory3" inherits="EoCAtlasFrameCategoryTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory2" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory4" inherits="EoCAtlasFrameCategoryTemplate" id="4">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory3" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory5" inherits="EoCAtlasFrameCategoryTemplate" id="5">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory4" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory6" inherits="EoCAtlasFrameCategoryTemplate" id="6">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory5" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory7" inherits="EoCAtlasFrameCategoryTemplate" id="7">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory6" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory8" inherits="EoCAtlasFrameCategoryTemplate" id="8">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory7" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory9" inherits="EoCAtlasFrameCategoryTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory8" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory10" inherits="EoCAtlasFrameCategoryTemplate" id="10">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory9" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory11" inherits="EoCAtlasFrameCategoryTemplate" id="11">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory10" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory12" inherits="EoCAtlasFrameCategoryTemplate" id="12">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory11" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory13" inherits="EoCAtlasFrameCategoryTemplate" id="13">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory12" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory14" inherits="EoCAtlasFrameCategoryTemplate" id="14">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory13" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory15" inherits="EoCAtlasFrameCategoryTemplate" id="15">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory14" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory16" inherits="EoCAtlasFrameCategoryTemplate" id="16">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory15" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory17" inherits="EoCAtlasFrameCategoryTemplate" id="17">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory16" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCategory18" inherits="EoCAtlasFrameCategoryTemplate" id="18">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentCategory17" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<ScrollFrame name="$parentCategoryScrollFrame" inherits="FauxScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="160" y="396"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-56"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture name="$parentScrollBarTop" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+							<Size>
+								<AbsDimension x="31" y="256"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+									<Offset>
+										<AbsDimension x="-2" y="5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+						</Texture>
+						<Texture name="$parentScrollBarBottom" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+							<Size>
+								<AbsDimension x="31" y="106"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+									<Offset>
+										<AbsDimension x="-2" y="-2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+						</Texture>
+						<Texture name="$parentScrollBarMiddle" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+							<Size>
+								<AbsDimension x="31" y="60"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parentScrollBarTop" relativePoint="BOTTOM">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+								<Anchor point="BOTTOM" relativeTo="$parentScrollBarBottom" relativePoint="TOP">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.484375" top=".75" bottom="1.0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnVerticalScroll>
+						FauxScrollFrame_OnVerticalScroll(self, offset, EOC_ATLAS_CATEGORYHEIGHT, EoCAtlasFrameCategory_Update);
+					</OnVerticalScroll>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
+		<Scripts>
+			<OnLoad function="EoCAtlasFrame_OnLoad"/>
+			<OnShow function="EoCAtlasFrame_OnShow"/>
+			<OnHide function="EoCAtlasFrame_OnHide"/>
+		</Scripts>
+	</Frame>
+</Ui>

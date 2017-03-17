@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Snake
+## Author: Motig, Vashj-EU
+## Notes: The classic Snake game! Type /snake to play!
+## DefaultState: Enabled
+Snake.lua
+

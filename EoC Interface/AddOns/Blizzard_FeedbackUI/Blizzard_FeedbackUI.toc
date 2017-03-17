@@ -1,0 +1,11 @@
+## Interface: 30300
+## Title: Blizzard_FeedbackUI
+## Version: 1.2
+## Notes: Sends feedback to a server. The feedback is stored locally in the server database for administrators or developers to read.
+## SavedVariablesPerCharacter: g_FeedbackUI_feedbackVars, g_FeedbackUI_surveysTable
+
+Localization.lua
+Blizzard_FeedbackUITemplates.xml
+Blizzard_FeedbackUI.xml
+Blizzard_FeedbackUIPanels.lua
+Blizzard_FeedbackUIDropDown.lua
